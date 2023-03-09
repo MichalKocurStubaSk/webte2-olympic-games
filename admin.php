@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 require_once('config.php');
 
-var_dump($_POST["person_id"]);
+//var_dump($_POST["person_id"]);
 
 try {
     $db = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
@@ -20,6 +20,7 @@ try {
 }
 
 if(!empty($_POST) && !empty($_POST['name'])){
+    var_dump($_POST);
     $sql = "INSERT INTO person (name, surname, birth_day, birth_place, birth_country) VALUES (?,?,?,?,?)";
     $stmt = $db->prepare($sql);
     $success = $stmt->execute([$_POST['name'], $_POST['surname'], $_POST['birth_day'], $_POST['birth_place'], $_POST['birth_country']]);
@@ -73,6 +74,20 @@ if(!empty($_POST) && !empty($_POST['name'])){
             </select>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        <table class="table">
+        <thead>
+            <tr><td>Meno</td><td>Priezvisko</td><td>Narodenie</td></tr>
+        </thead>
+        <tbody>
+        <?php //var_dump($results) 
+        foreach($persons as $person){
+            $date = new DateTimeImmutable($person["birth_day"]);
+            echo "<tr><td><a href='editPerson.php?id=" .  $person["id"] . "'>" . $person["name"] . "</a></td><td>" . $person["surname"] . "</td><td>" . $date->format("d.m.Y") . "</td></tr>";
+        }
+        ?> 
+        </tbody>
+    </table>
     </div>
 </body>
 </html>

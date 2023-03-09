@@ -32,7 +32,7 @@ try {
 </head>
 <body>
     <div class="container-md">
-    <h1>Zadanie 1</h1>
+    <h1>Zadanie 1 cv4</h1>   
     <table class="table">
         <thead>
             <tr><td>Meno</td><td>Priezvisko</td><td>Narodenie</td></tr>
